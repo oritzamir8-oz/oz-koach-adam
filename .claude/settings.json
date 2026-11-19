@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__eaf31c11-87b7-4d84-87ca-89ea5730dec1",
+      "mcp__eaf31c11-87b7-4d84-87ca-89ea5730dec1__*",
+      "mcp__claude_ai_Gmail",
+      "mcp__claude_ai_Gmail__*"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^mcp__.+__(search_threads|get_thread|get_message|list_labels|list_drafts|get_draft|download_gmail_attachment|trash_message|trash_thread|untrash_message|untrash_thread|apply_sensitive_message_label|apply_sensitive_thread_label|mark_message_spam|mark_thread_spam|unmark_message_spam|unmark_thread_spam|label_message|label_thread|unlabel_message|unlabel_thread|update_message_labels|create_label|update_label|delete_label|send_message|reply|forward|create_draft|update_draft|delete_draft)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"OZ lock: the mailbox is locked in the agents folder\"}}'",
+            "onFailure": "block",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
